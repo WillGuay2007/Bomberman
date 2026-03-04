@@ -1,10 +1,42 @@
 #include "Tile.h"
 
-Tile::Tile(SDL_Renderer* renderer, float posX, float posY, float width, float height) : Sprite( renderer, posX, posY, width, height)
+Tile::Tile(SDL_Renderer* renderer, float posX, float posY, float width, float height, SDL_Texture* _texture, TileType tileType) :
+	Sprite(renderer, posX, posY, width, height)
+	, m_tileType(tileType)
 {
-	
+
+	texture = _texture;
+	LoadTypeTexture();
 }
 
-Tile::~Tile()
+bool Tile::isWalkable() const
 {
+	return m_tileType == TileType::Grass;
+}
+
+bool Tile::isBreakable() const
+{
+	return m_tileType == TileType::BreakableWall;
+}
+
+void Tile::SetTileType(TileType newType)
+{
+	if (m_tileType == newType) return;
+	m_tileType = newType;
+	LoadTypeTexture();
+}
+
+void Tile::LoadTypeTexture()
+{
+	switch (m_tileType) {
+	case TileType::BreakableWall:
+		LoadTextureFromAssets(4, 3);
+		break;
+	case TileType::Wall:
+		LoadTextureFromAssets(3, 3);
+		break;
+	case TileType::Grass:
+		LoadTextureFromAssets(0, 4);
+		break;
+	}
 }
