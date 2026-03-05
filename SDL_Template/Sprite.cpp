@@ -6,16 +6,9 @@ Sprite::Sprite(SDL_Renderer* renderer, float x, float y, float w, float h)
 	, m_rect(SDL_Rect())
 	, m_renderer(renderer)
 {
-	m_rect.x = x;
-	m_rect.y = y;
-	m_rect.w = w;
-	m_rect.h = h;
+	SetPosition(x, y);
+	SetSize(w, h);
 	m_srcRect = { 0,0,0,0 };
-}
-
-Sprite::~Sprite()
-{
-	
 }
 
 bool Sprite::LoadTexture(const std::string& filename)
@@ -45,4 +38,34 @@ void Sprite::Draw()
 		return;
 	}
 	SDL_RenderCopyEx(m_renderer, texture, &m_srcRect, &m_rect, 0.0, nullptr, SDL_FLIP_NONE);
+}
+
+void Sprite::Translate(int x, int y)
+{
+	m_rect.x += x; m_rect.y += y;
+}
+
+void Sprite::SetPosition(float x, float y)
+{
+	m_rect.x = x; m_rect.y = y;
+}
+
+void Sprite::SetSize(float w, float h)
+{
+	m_rect.w = w; m_rect.h = h;
+}
+
+Vector2 Sprite::GetPosition()
+{
+	return Vector2(m_rect.x, m_rect.y);
+}
+
+Size Sprite::GetSize()
+{
+	return Size(m_rect.w, m_rect.h);
+}
+
+SDL_Rect& Sprite::GetRect()
+{
+	return m_rect;
 }

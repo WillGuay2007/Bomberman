@@ -2,7 +2,7 @@
 
 #include "Sprite.h"
 
-enum TileType
+enum ETileType
 {
 	Grass,
 	BreakableWall,
@@ -12,13 +12,13 @@ enum TileType
 class Tile : public Sprite
 {
 public:
-	Tile(SDL_Renderer* renderer, float posX, float posY, float width, float height, SDL_Texture* texture, TileType tileType);
+	Tile(SDL_Renderer* renderer, float posX, float posY, float width, float height, SDL_Texture* texture, ETileType tileType);
 
 	bool isWalkable() const;
 	bool isBreakable() const;
-	void SetTileType(TileType newType);
+	void SetTileType(ETileType newType);
 	void LoadTypeTexture();
 private:
-	TileType m_tileType;
+	ETileType m_tileType;
 };
 

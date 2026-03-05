@@ -52,7 +52,7 @@ int main(int argc, char* argv[])
 					break;
 				case SDL_KEYDOWN:
 				{
-					game->HandleKeys(events.key.keysym.sym);
+					//game->HandleKeys(events.key.keysym.sym);
 					break;
 				}
 			}

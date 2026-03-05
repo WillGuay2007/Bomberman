@@ -154,14 +154,24 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Grid.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Powerup.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Tile.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h" />
     <ClInclude Include="Grid.h" />
+    <ClInclude Include="EDirection.h" />
+    <ClInclude Include="TransformStructs.h" />
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="Powerup.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="Tile.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="SDL_Template.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

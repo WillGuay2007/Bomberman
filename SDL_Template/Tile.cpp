@@ -1,6 +1,6 @@
 #include "Tile.h"
 
-Tile::Tile(SDL_Renderer* renderer, float posX, float posY, float width, float height, SDL_Texture* _texture, TileType tileType) :
+Tile::Tile(SDL_Renderer* renderer, float posX, float posY, float width, float height, SDL_Texture* _texture, ETileType tileType) :
 	Sprite(renderer, posX, posY, width, height)
 	, m_tileType(tileType)
 {
@@ -11,15 +11,15 @@ Tile::Tile(SDL_Renderer* renderer, float posX, float posY, float width, float he
 
 bool Tile::isWalkable() const
 {
-	return m_tileType == TileType::Grass;
+	return m_tileType == ETileType::Grass;
 }
 
 bool Tile::isBreakable() const
 {
-	return m_tileType == TileType::BreakableWall;
+	return m_tileType == ETileType::BreakableWall;
 }
 
-void Tile::SetTileType(TileType newType)
+void Tile::SetTileType(ETileType newType)
 {
 	if (m_tileType == newType) return;
 	m_tileType = newType;
@@ -29,13 +29,13 @@ void Tile::SetTileType(TileType newType)
 void Tile::LoadTypeTexture()
 {
 	switch (m_tileType) {
-	case TileType::BreakableWall:
+	case ETileType::BreakableWall:
 		LoadTextureFromAssets(4, 3);
 		break;
-	case TileType::Wall:
+	case ETileType::Wall:
 		LoadTextureFromAssets(3, 3);
 		break;
-	case TileType::Grass:
+	case ETileType::Grass:
 		LoadTextureFromAssets(0, 4);
 		break;
 	}

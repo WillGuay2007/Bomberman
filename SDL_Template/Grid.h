@@ -3,6 +3,7 @@
 #include <iostream>
 #include <vector>
 #include "Tile.h"
+#include "TransformStructs.h"
 
 class Grid
 {
@@ -13,6 +14,9 @@ public:
 	std::vector<float> getCenter();
 	void Init();
 	void Draw();
+	bool CanMoveToRect(const SDL_Rect& playerRect);
+	Tile* GetTile(int x, int y);
+	GridPosition WorldToGrid(Vector2 position);
 
 private:
 	SDL_Renderer* m_renderer;

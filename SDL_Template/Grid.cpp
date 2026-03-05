@@ -33,9 +33,9 @@ void Grid::Init()
 	std::cout << "Initializing the " << m_width << "x" << m_height << "grid.\n";
 	for (int column = 0; column < m_width; column++) {
 		for (int row = 0; row < m_height; row++) {
-			TileType chosenType = TileType::Grass;
+			ETileType chosenType = ETileType::Grass;
 			if (column == 0 || row == 0 || column == m_width - 1 || row == m_height - 1 || (column % 2 == 0 && row % 2 == 0)) {
-				chosenType = TileType::Wall;
+				chosenType = ETileType::Wall;
 			}
 			m_tiles[column][row] = new Tile(m_renderer, column * m_tileSize, row * m_tileSize, m_tileSize, m_tileSize, m_tilesTexture, chosenType);
 		}
@@ -61,7 +61,7 @@ void Grid::Init()
 		Tile* tile = m_tiles[column][row];
 		if (tile->isWalkable()) {
 			placed++;
-			tile->SetTileType(TileType::BreakableWall);
+			tile->SetTileType(ETileType::BreakableWall);
 		}
 	}
 }
@@ -73,4 +73,43 @@ void Grid::Draw()
 			m_tiles[column][row]->Draw();
 		}
 	}
+}
+
+Tile* Grid::GetTile(int x, int y)
+{
+	if (m_tiles.empty()) return nullptr;
+	return m_tiles[x][y];
+}
+
+GridPosition Grid::WorldToGrid(Vector2 position)
+{
+	return {
+		(int)(position.x / m_tileSize),
+		(int)(position.y / m_tileSize)
+	};
+}
+
+bool Grid::CanMoveToRect(const SDL_Rect& entityRect)
+{
+	for (int column = 0; column < m_width; column++)
+	{
+		for (int row = 0; row < m_height; row++)
+		{
+			Tile* tile = m_tiles[column][row];
+
+			if (tile->isWalkable()) continue;
+
+			SDL_Rect tileRect =
+			{
+				column * m_tileSize,
+				row * m_tileSize,
+				m_tileSize,
+				m_tileSize
+			};
+
+			if (SDL_HasIntersection(&entityRect, &tileRect)) return false;
+		}
+	}
+
+	return true;
 }
